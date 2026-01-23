@@ -6,7 +6,7 @@
 /*   By: danielafonso <danielafonso@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:48:27 by danielafons       #+#    #+#             */
-/*   Updated: 2026/01/19 12:26:52 by danielafons      ###   ########.fr       */
+/*   Updated: 2026/01/23 17:56:35 by danielafons      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@
 
 class Bigint {
     private:
-        unsigned int bigint;
-        std::vector<int> v1;
-        std::string str;
+        std::vector<int> digits;
     public:
-    Bigint(const std::string& str);
-    Bigint& operator+(const Bigint& other);
-    Bigint& operator<<(const Bigint& other);
+    Bigint();
+    Bigint(int nb);
+    Bigint operator+(const Bigint& other);
+    //std::ostream &operator<<(std::ostream &out, const Bigint& n);
+    void normalize(Bigint& bigint, const std::vector<int>& v1);
 };
 
 #endif
