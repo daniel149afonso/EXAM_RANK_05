@@ -6,7 +6,7 @@
 /*   By: danielafonso <danielafonso@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:48:31 by danielafons       #+#    #+#             */
-/*   Updated: 2026/01/23 18:14:23 by danielafons      ###   ########.fr       */
+/*   Updated: 2026/01/26 19:15:14 by danielafons      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,11 @@ Bigint::Bigint(int nb): digits(1, 0)
         while (nb > 0)
         {
             mod = nb % 10;
-            //debug
-            std::cout << "Mod: "<< mod << std::endl;
             nb /= 10;
-            //debug
-            std::cout << "Result: "<< nb << std::endl;
             v1.push_back(mod);
         }
     }
+    remove_zeros(v1);
     normalize((*this), v1);
     //debug
     for (size_t i = 0; i < this->digits.size(); i++)
@@ -69,24 +66,16 @@ Bigint Bigint::operator+(const Bigint& other)
     }
     if (carry)
         v1.push_back(carry);
-    i = static_cast<int>(v1.size() - 1);
-    while (v1.size() > 1 && v1.back() == 0)
-    {
-        v1.pop_back();
-        i--;
-    }
-     std::cout << "Result V1: ";
-    for (size_t i = 0; i < v1.size(); i++)
-    {
-       std::cout << v1[i];
-    }
-    std::cout << std::endl;
+    remove_zeros(v1);
+    //debug
+    std::cout << "Result V1: ";
+    print_bigint(v1);
     normalize(bigint, v1);
     //debug
     std::cout << "Result Addition: ";
-    for (size_t i = 0; i < this->digits.size(); i++)
+    for (size_t i = 0; i < bigint.digits.size(); i++)
     {
-       std::cout << this->digits[i];
+       std::cout << bigint.digits[i];
     }
     std::cout << std::endl;
     return (bigint);
@@ -99,10 +88,29 @@ void Bigint::normalize(Bigint& bigint, const std::vector<int>& v1)
 
     while (i >= 0)
     {
-        if (i == end)
+        if (bigint.digits[0] == 0)
             bigint.digits[0] = v1[i];
         else
             bigint.digits.push_back(v1[i]);
         i--;
     }
+}
+
+void Bigint::remove_zeros(std::vector<int>& v1)
+{
+    int i = static_cast<int>(v1.size() - 1);
+    while (v1.size() > 1 && v1.back() == 0)
+    {
+        v1.pop_back();
+        i--;
+    }
+}
+
+void Bigint::print_bigint(std::vector<int>& v1)
+{
+    for (size_t i = 0; i < v1.size(); i++)
+    {
+       std::cout << v1[i];
+    }
+    std::cout << std::endl;
 }

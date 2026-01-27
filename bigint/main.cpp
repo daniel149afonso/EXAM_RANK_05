@@ -6,7 +6,7 @@
 /*   By: danielafonso <danielafonso@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:48:37 by danielafons       #+#    #+#             */
-/*   Updated: 2026/01/23 18:06:08 by danielafons      ###   ########.fr       */
+/*   Updated: 2026/01/26 18:37:56 by danielafons      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int ft_isdigit(std::string str)
 
 int main()
 {
-    Bigint a(111);
+    Bigint a(0000222);
     Bigint b(111);
     
     a + b;
