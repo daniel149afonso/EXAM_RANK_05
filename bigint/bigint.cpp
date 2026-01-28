@@ -6,7 +6,7 @@
 /*   By: danielafonso <danielafonso@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:48:31 by danielafons       #+#    #+#             */
-/*   Updated: 2026/01/26 19:15:14 by danielafons      ###   ########.fr       */
+/*   Updated: 2026/01/28 15:41:38 by danielafons      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ Bigint::Bigint(int nb): digits(1, 0)
     int mod;
     std::vector<int> v1;
 
+    
     if (nb == 0)
         v1.push_back(0);
     else
@@ -36,11 +37,8 @@ Bigint::Bigint(int nb): digits(1, 0)
     remove_zeros(v1);
     normalize((*this), v1);
     //debug
-    for (size_t i = 0; i < this->digits.size(); i++)
-    {
-       std::cout << this->digits[i];
-    }
-    std::cout << std::endl;
+    std::cout << "Object 1: ";
+    print_bigint(this->digits);
 }
 
 Bigint Bigint::operator+(const Bigint& other)
@@ -73,25 +71,35 @@ Bigint Bigint::operator+(const Bigint& other)
     normalize(bigint, v1);
     //debug
     std::cout << "Result Addition: ";
-    for (size_t i = 0; i < bigint.digits.size(); i++)
-    {
-       std::cout << bigint.digits[i];
-    }
+    print_bigint(bigint.digits);
     std::cout << std::endl;
     return (bigint);
+}
+
+Bigint Bigint::operator=(const Bigint& other)
+{
+    if (this == &other)
+        return (*this);
+    this->digits = other.digits; //copy allowed
+    return (*this);
+}
+
+//out reference to std::cout
+std::ostream& operator<<(std::ostream &out, const Bigint& n)
+{
+    for (size_t i = 0; i < n.digits.size(); ++i)
+        out << n.digits[i];
+    return (out);
 }
 
 void Bigint::normalize(Bigint& bigint, const std::vector<int>& v1)
 {
     int i = static_cast<int>(v1.size() - 1);
-    int end = i;
 
+    bigint.digits.clear();
     while (i >= 0)
     {
-        if (bigint.digits[0] == 0)
-            bigint.digits[0] = v1[i];
-        else
-            bigint.digits.push_back(v1[i]);
+        bigint.digits.push_back(v1[i]);
         i--;
     }
 }
