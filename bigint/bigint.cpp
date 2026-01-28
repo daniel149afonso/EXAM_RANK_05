@@ -6,7 +6,7 @@
 /*   By: danielafonso <danielafonso@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:48:31 by danielafons       #+#    #+#             */
-/*   Updated: 2026/01/28 15:41:38 by danielafons      ###   ########.fr       */
+/*   Updated: 2026/01/28 20:27:11 by danielafons      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,56 @@ Bigint Bigint::operator=(const Bigint& other)
         return (*this);
     this->digits = other.digits; //copy allowed
     return (*this);
+}
+
+bool Bigint::operator==(const Bigint& other)
+{
+    if (this->digits.size() != other.digits.size())
+        return(false);
+    for (size_t i = 0; i < this->digits.size(); i++)
+    {
+        if (this->digits[i] != other.digits[i])
+            return (false);
+    }
+    return (true);
+}
+
+bool Bigint::operator>(const Bigint& other)
+{
+    if (this->digits.size() > other.digits.size())
+        return(true);
+    else if (this->digits.size() < other.digits.size())
+        return (false);
+    else
+    {
+        for (size_t i = 0; i < this->digits.size(); i++)
+        {
+            if (this->digits[i] > other.digits[i])
+                return (true);
+            else if (this->digits[i] < other.digits[i])
+                return (false);
+        }
+    }
+    return (false);
+}
+
+bool Bigint::operator<(const Bigint& other)
+{
+    if (this->digits.size() > other.digits.size())
+        return(false);
+    else if (this->digits.size() < other.digits.size())
+        return (true);
+    else
+    {
+        for (size_t i = 0; i < this->digits.size(); i++)
+        {
+            if (this->digits[i] > other.digits[i])
+                return (false);
+            else if (this->digits[i] < other.digits[i])
+                return (true);
+        }
+    }
+    return (false);
 }
 
 //out reference to std::cout

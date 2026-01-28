@@ -6,7 +6,7 @@
 /*   By: danielafonso <danielafonso@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:48:27 by danielafons       #+#    #+#             */
-/*   Updated: 2026/01/28 15:42:29 by danielafons      ###   ########.fr       */
+/*   Updated: 2026/01/28 19:58:57 by danielafons      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ class Bigint {
     Bigint(int nb);
     Bigint operator+(const Bigint& other);
     Bigint operator=(const Bigint& other);
-    Bigint operator==(const Bigint& other);
+    bool operator==(const Bigint& other);
+    bool operator>(const Bigint& other);
+    bool operator<(const Bigint& other);
     void normalize(Bigint& bigint, const std::vector<int>& v1);
     void remove_zeros(std::vector<int>& v1);
     void print_bigint(std::vector<int>& v1);

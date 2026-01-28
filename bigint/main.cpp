@@ -6,7 +6,7 @@
 /*   By: danielafonso <danielafonso@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:48:37 by danielafons       #+#    #+#             */
-/*   Updated: 2026/01/28 15:39:01 by danielafons      ###   ########.fr       */
+/*   Updated: 2026/01/28 20:26:30 by danielafons      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,10 @@ int ft_isdigit(std::string str)
 
 int main()
 {
-    Bigint a(12);
+    Bigint a(111);
     Bigint b(111);
     
-    a = a + b;
-    std::cout << a << std::endl;
-    int c =12;
-
-    std::ostream& out = std::cout;
-
-    out << c;
+    if (a==b)
+        std::cout << "true\n";
     return (0);
 }
