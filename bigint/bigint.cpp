@@ -6,7 +6,7 @@
 /*   By: danielafonso <danielafonso@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:48:31 by danielafons       #+#    #+#             */
-/*   Updated: 2026/01/28 20:27:11 by danielafons      ###   ########.fr       */
+/*   Updated: 2026/01/29 12:14:09 by danielafons      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,19 @@ bool Bigint::operator<(const Bigint& other)
         }
     }
     return (false);
+}
+
+Bigint Bigint::operator>>(int nb) const
+{
+    Bigint bigint;
+
+    for (size_t i = 0; i < this->digits.size(); i++)
+        bigint.digits.push_back(this->digits[i]);
+    if (nb == 0)
+        return (bigint);
+    for (int i = 0; i < nb; i++)
+        bigint.digits.push_back(0);
+    return (bigint);
 }
 
 //out reference to std::cout
