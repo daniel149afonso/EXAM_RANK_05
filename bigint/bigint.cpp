@@ -6,7 +6,7 @@
 /*   By: danielafonso <danielafonso@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:48:31 by danielafons       #+#    #+#             */
-/*   Updated: 2026/01/30 17:57:48 by danielafons      ###   ########.fr       */
+/*   Updated: 2026/01/30 19:38:41 by danielafons      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ Bigint& Bigint::operator=(const Bigint& other)
     return (*this);
 }
 
-Bigint Bigint::operator+(const Bigint& other)
+Bigint Bigint::operator+(const Bigint& other) const
 {
     Bigint bigint;
     std::vector<int> v1;
@@ -80,7 +80,7 @@ Bigint Bigint::operator+(const Bigint& other)
     return (bigint);
 }
 
-Bigint Bigint::operator+=(const Bigint& other)
+Bigint& Bigint::operator+=(const Bigint& other)
 {
     std::vector<int> v1;
 
@@ -106,7 +106,7 @@ Bigint Bigint::operator+=(const Bigint& other)
     return (*this);
 }
 
-bool Bigint::operator==(const Bigint& other)
+bool Bigint::operator==(const Bigint& other) const
 {
     if (this->digits.size() != other.digits.size())
         return(false);
@@ -118,7 +118,7 @@ bool Bigint::operator==(const Bigint& other)
     return (true);
 }
 
-bool Bigint::operator!=(const Bigint& other)
+bool Bigint::operator!=(const Bigint& other) const
 {
     if (this->digits.size() != other.digits.size())
         return(true);
@@ -130,7 +130,7 @@ bool Bigint::operator!=(const Bigint& other)
     return (false);
 }
 
-bool Bigint::operator>(const Bigint& other)
+bool Bigint::operator>(const Bigint& other) const
 {
     if (this->digits.size() > other.digits.size())
         return(true);
@@ -149,7 +149,7 @@ bool Bigint::operator>(const Bigint& other)
     return (false);
 }
 
-bool Bigint::operator>=(const Bigint& other)
+bool Bigint::operator>=(const Bigint& other) const
 {
     if (this->digits.size() > other.digits.size())
         return(true);
@@ -168,7 +168,7 @@ bool Bigint::operator>=(const Bigint& other)
     return (false);
 }
 
-bool Bigint::operator<(const Bigint& other)
+bool Bigint::operator<(const Bigint& other) const
 {
     if (this->digits.size() > other.digits.size())
         return(false);
@@ -187,7 +187,7 @@ bool Bigint::operator<(const Bigint& other)
     return (false);
 }
 
-bool Bigint::operator<=(const Bigint& other)
+bool Bigint::operator<=(const Bigint& other) const
 {
     if (this->digits.size() > other.digits.size())
         return(false);
@@ -206,7 +206,26 @@ bool Bigint::operator<=(const Bigint& other)
     return (false);
 }
 
-Bigint Bigint::operator<<(int nb)
+Bigint Bigint::operator<<(int nb) const
+{
+    Bigint bigint;
+
+    for (size_t i = 0; i < this->digits.size(); i++)
+    {
+        if (i == 0)
+            bigint.digits[0] = this->digits[i];
+        else
+            bigint.digits.push_back(this->digits[i]);
+    }  
+    print_bigint(bigint.digits);
+    if (nb == 0)
+        return (bigint);
+    for (int i = 0; i < nb; i++)
+        bigint.digits.push_back(0);
+    return (bigint);
+}
+
+Bigint Bigint::operator>>(int nb) const
 {
     Bigint bigint;
 
