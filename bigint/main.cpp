@@ -6,7 +6,7 @@
 /*   By: danielafonso <danielafonso@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:48:37 by danielafons       #+#    #+#             */
-/*   Updated: 2026/02/02 15:54:17 by danielafons      ###   ########.fr       */
+/*   Updated: 2026/02/02 18:36:15 by danielafons      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int main()
     Bigint a(12);
     Bigint b(24);
     
-    std::cout << "a + "<< b <<  std::endl;
+    std::cout << "a + " << b <<  std::endl;
 
     return (0);
 }
