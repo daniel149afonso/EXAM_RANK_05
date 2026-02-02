@@ -6,7 +6,7 @@
 /*   By: danielafonso <danielafonso@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:48:27 by danielafons       #+#    #+#             */
-/*   Updated: 2026/01/30 18:10:02 by danielafons      ###   ########.fr       */
+/*   Updated: 2026/02/02 12:56:34 by danielafons      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ class Bigint {
 
     
     // Public Methods
-    void normalize(Bigint& bigint, const std::vector<int>& v1);
+    void normalize(Bigint& bigint, const std::vector<int>& v1) const;
     void print_bigint(std::vector<int>& v1);
     void print_digits(std::ostream &out) const;
 };

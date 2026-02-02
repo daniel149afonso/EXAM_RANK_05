@@ -6,7 +6,7 @@
 /*   By: danielafonso <danielafonso@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:48:31 by danielafons       #+#    #+#             */
-/*   Updated: 2026/01/30 19:38:41 by danielafons      ###   ########.fr       */
+/*   Updated: 2026/02/02 15:51:21 by danielafons      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ Bigint::Bigint(int nb): digits(1, 0)
             v1.push_back(mod);
         }
     }
-    remove_zeros(v1);
     normalize((*this), v1);
     //debug
     std::cout << "Object 1: ";
@@ -208,18 +207,9 @@ bool Bigint::operator<=(const Bigint& other) const
 
 Bigint Bigint::operator<<(int nb) const
 {
-    Bigint bigint;
-
-    for (size_t i = 0; i < this->digits.size(); i++)
-    {
-        if (i == 0)
-            bigint.digits[0] = this->digits[i];
-        else
-            bigint.digits.push_back(this->digits[i]);
-    }  
-    print_bigint(bigint.digits);
-    if (nb == 0)
-        return (bigint);
+    if (nb <= 0)
+        return *this;
+    Bigint bigint(*this);
     for (int i = 0; i < nb; i++)
         bigint.digits.push_back(0);
     return (bigint);
@@ -227,23 +217,30 @@ Bigint Bigint::operator<<(int nb) const
 
 Bigint Bigint::operator>>(int nb) const
 {
-    Bigint bigint;
-
-    for (size_t i = 0; i < this->digits.size(); i++)
-    {
-        if (i == 0)
-            bigint.digits[0] = this->digits[i];
-        else
-            bigint.digits.push_back(this->digits[i]);
-    }  
-    print_bigint(bigint.digits);
-    if (nb == 0)
-        return (bigint);
-    for (int i = 0; i < nb; i++)
+   if (nb <= 0)
+        return *this;
+    Bigint bigint(*this);
+    for (int i = 0; i < nb && !bigint.digits.empty(); i++)
+        bigint.digits.pop_back();
+    if (bigint.digits.empty())
         bigint.digits.push_back(0);
     return (bigint);
 }
 
+Bigint& Bigint::operator++()
+{
+    Bigint bigint(1);
+    (*this) += bigint;
+    return (*this);
+}
+
+Bigint Bigint::operator++(int)
+{
+    Bigint bigint(*this);
+    ++(*this);
+    return (bigint);
+}
+    
 //out reference to std::cout
 std::ostream& operator<<(std::ostream &out, const Bigint& n)
 {
@@ -257,7 +254,7 @@ void Bigint::print_digits(std::ostream &out) const
         out << digits[i];
 }
 
-void Bigint::normalize(Bigint& bigint, const std::vector<int>& v1)
+void Bigint::normalize(Bigint& bigint, const std::vector<int>& v1) const
 {
     int i = static_cast<int>(v1.size() - 1);
 
