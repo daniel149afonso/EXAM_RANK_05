@@ -6,7 +6,7 @@
 /*   By: danielafonso <danielafonso@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:48:27 by danielafons       #+#    #+#             */
-/*   Updated: 2026/02/02 12:56:34 by danielafons      ###   ########.fr       */
+/*   Updated: 2026/02/03 13:20:09 by danielafons      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,10 @@ class Bigint {
     //Digits shiffting
     Bigint operator<<(int nb) const;
     Bigint operator>>(int nb) const;
+    Bigint& operator<<=(int nb);
+    Bigint& operator>>=(int nb);
+    Bigint& operator>>=(const Bigint& nb);
 
-    
     // Public Methods
     void normalize(Bigint& bigint, const std::vector<int>& v1) const;
     void print_bigint(std::vector<int>& v1);

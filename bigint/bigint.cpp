@@ -6,17 +6,19 @@
 /*   By: danielafonso <danielafonso@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:48:31 by danielafons       #+#    #+#             */
-/*   Updated: 2026/02/02 15:51:21 by danielafons      ###   ########.fr       */
+/*   Updated: 2026/02/03 16:16:11 by danielafons      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bigint.hpp"
 
+// Default constructor
 Bigint::Bigint(): digits(1, 0)
 {
 
 }
 
+// Constructor
 Bigint::Bigint(int nb): digits(1, 0)
 {
     int mod;
@@ -35,15 +37,17 @@ Bigint::Bigint(int nb): digits(1, 0)
     }
     normalize((*this), v1);
     //debug
-    std::cout << "Object 1: ";
-    print_bigint(this->digits);
+    //std::cout << "Object 1: ";
+    //print_bigint(this->digits);
 }
 
+// Copy constructor
 Bigint::Bigint(const Bigint& other): digits(other.digits)
 {
 
 }
 
+// Assignement operator
 Bigint& Bigint::operator=(const Bigint& other)
 {
     if (this == &other)
@@ -52,6 +56,7 @@ Bigint& Bigint::operator=(const Bigint& other)
     return (*this);
 }
 
+// Addition operator
 Bigint Bigint::operator+(const Bigint& other) const
 {
     Bigint bigint;
@@ -150,21 +155,16 @@ bool Bigint::operator>(const Bigint& other) const
 
 bool Bigint::operator>=(const Bigint& other) const
 {
-    if (this->digits.size() > other.digits.size())
-        return(true);
-    else if (this->digits.size() < other.digits.size())
-        return (false);
-    else
+    if (digits.size() != other.digits.size())
+        return digits.size() > other.digits.size();
+    for (size_t i = 0; i < this->digits.size(); i++)
     {
-        for (size_t i = 0; i < this->digits.size(); i++)
-        {
-            if (this->digits[i] >= other.digits[i])
-                return (true);
-            else if (this->digits[i] < other.digits[i])
-                return (false);
-        }
+        if (this->digits[i] > other.digits[i])
+            return (true);
+        else if (this->digits[i] < other.digits[i])
+            return (false);
     }
-    return (false);
+    return (true);
 }
 
 bool Bigint::operator<(const Bigint& other) const
@@ -188,23 +188,19 @@ bool Bigint::operator<(const Bigint& other) const
 
 bool Bigint::operator<=(const Bigint& other) const
 {
-    if (this->digits.size() > other.digits.size())
-        return(false);
-    else if (this->digits.size() <= other.digits.size())
-        return (true);
-    else
+    if (digits.size() != other.digits.size())
+        return digits.size() < other.digits.size();
+    for (size_t i = 0; i < this->digits.size(); i++)
     {
-        for (size_t i = 0; i < this->digits.size(); i++)
-        {
-            if (this->digits[i] > other.digits[i])
-                return (false);
-            else if (this->digits[i] <= other.digits[i])
-                return (true);
-        }
+        if (this->digits[i] < other.digits[i])
+            return (true);
+        else if (this->digits[i] > other.digits[i])
+            return (false);
     }
-    return (false);
+    return (true);
 }
 
+// Digit shiffting
 Bigint Bigint::operator<<(int nb) const
 {
     if (nb <= 0)
@@ -213,6 +209,15 @@ Bigint Bigint::operator<<(int nb) const
     for (int i = 0; i < nb; i++)
         bigint.digits.push_back(0);
     return (bigint);
+}
+
+Bigint& Bigint::operator<<=(int nb)
+{
+    if (nb <= 0)
+        return *this;
+    for (int i = 0; i < nb; i++)
+        digits.push_back(0);
+    return (*this);
 }
 
 Bigint Bigint::operator>>(int nb) const
@@ -226,6 +231,33 @@ Bigint Bigint::operator>>(int nb) const
         bigint.digits.push_back(0);
     return (bigint);
 }
+
+Bigint& Bigint::operator>>=(int nb)
+{
+   if (nb <= 0)
+        return *this;
+    for (int i = 0; i < nb && !digits.empty(); i++)
+        digits.pop_back();
+    if (digits.empty())
+        digits.push_back(0);
+    return (*this);
+}
+
+Bigint& Bigint::operator>>=(const Bigint& nb)
+{
+    // Cas nb = 0
+    if (nb.digits.size() == 1 && nb.digits[0] == 0)
+        return *this;
+
+    // Convertir nb (Bigint) -> int n (très simple)
+    int n = 0;
+    for (size_t i = 0; i < nb.digits.size(); ++i)
+        n = n * 10 + nb.digits[i];  // nb.digits contient les chiffres en MSB-first
+
+    // Réutiliser ton opérateur existant
+    return (*this >>= n);
+}
+
 
 Bigint& Bigint::operator++()
 {
