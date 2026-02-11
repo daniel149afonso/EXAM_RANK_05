@@ -6,7 +6,7 @@
 /*   By: danielafonso <danielafonso@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:48:31 by danielafons       #+#    #+#             */
-/*   Updated: 2026/02/03 16:16:11 by danielafons      ###   ########.fr       */
+/*   Updated: 2026/02/11 13:14:15 by danielafons      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,11 +258,9 @@ Bigint& Bigint::operator>>=(const Bigint& nb)
     return (*this >>= n);
 }
 
-
 Bigint& Bigint::operator++()
 {
-    Bigint bigint(1);
-    (*this) += bigint;
+    (*this) += Bigint(1);
     return (*this);
 }
 
