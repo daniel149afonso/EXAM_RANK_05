@@ -1,6 +1,8 @@
 #pragma once
 
 #include "bag.hpp"
+#include <iostream>
+#include <cstddef>
 
 class tree_bag : virtual public bag {
 protected:

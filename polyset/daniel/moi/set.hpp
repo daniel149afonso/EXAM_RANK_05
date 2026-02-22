@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   searchable_array_bag.hpp                            :+:      :+:    :+:   */
+/*   set.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daniel149afonso <daniel149afonso@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/21 12:52:18 by daniel149af       #+#    #+#             */
-/*   Updated: 2026/02/21 13:01:46 by daniel149af      ###   ########.fr       */
+/*   Created: 2026/02/22 14:17:19 by daniel149af       #+#    #+#             */
+/*   Updated: 2026/02/22 15:13:24 by daniel149af      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
-
-#include "../array_bag.hpp"
 #include "../searchable_bag.hpp"
-#include <iostream>
-#include <cstddef>
+#include "searchable_array_bag.hpp"
+#include "searchable_tree_bag.hpp"
 
-class searchable_array_bag: public array_bag, public searchable_bag {
+class set
+{
+	private:
+		searchable_bag* _bag;
 	public:
-		searchable_array_bag();
-		searchable_array_bag(const searchable_array_bag& other);
-		searchable_array_bag  &operator=(const searchable_array_bag& other);
-		~searchable_array_bag();
+		set();
+		set(const set& other);
+		set& operator=(const set& other);
+		~set();
 
-		//public method
-		bool has(int) const;
+		//searchable
+		set(const searchable_bag& other);
+		set& operator=(const searchable_bag& other);
 };
+

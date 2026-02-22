@@ -6,13 +6,14 @@
 /*   By: daniel149afonso <daniel149afonso@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 12:52:18 by daniel149af       #+#    #+#             */
-/*   Updated: 2026/02/21 16:20:57 by daniel149af      ###   ########.fr       */
+/*   Updated: 2026/02/22 13:49:41 by daniel149af      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 #include <iostream>
 #include <stdlib.h>
+#include <cstddef>
 #include "../tree_bag.hpp"
 #include "../searchable_bag.hpp"
 
