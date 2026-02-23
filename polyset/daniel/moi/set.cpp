@@ -6,42 +6,46 @@
 /*   By: daniel149afonso <daniel149afonso@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 14:17:21 by daniel149af       #+#    #+#             */
-/*   Updated: 2026/02/22 15:19:42 by daniel149af      ###   ########.fr       */
+/*   Updated: 2026/02/23 13:13:15 by daniel149af      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "set.hpp"
 
-set::set()
-{
-	_bag = NULL;
-}
-
-set::set(const set& other)
-{
-
-}
-
-set& set::operator=(const set& other)
+set::set(searchable_bag& other): _bag(other)
 {
 	
 }
-	
+
 set::~set()
 {
 	
 }
 
-set::set(const searchable_bag& other)
+void set::insert(const int nb)
 {
-	if (dynamic_cast<const searchable_array_bag*>(&other))
-		_bag = new searchable_array_bag(other);
-	else
-		_bag = new searchable_tree_bag(other);
-		
+	if (_bag.has(nb))
+		return ;
+	_bag.insert(nb);
 }
 
-set& set::operator=(const searchable_bag& other)
+bool set::has(const int nb) const
 {
-	
+	return _bag.has(nb);
 }
+
+void set::print() const 
+{
+	_bag.print();
+}
+
+searchable_bag& set::get_bag() const
+{
+	return _bag;
+}
+
+void set::clear()
+{
+	_bag.clear();
+}
+
