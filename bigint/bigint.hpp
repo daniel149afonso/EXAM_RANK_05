@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bigint.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danielafonso <danielafonso@student.42.f    +#+  +:+       +#+        */
+/*   By: daniel149afonso <daniel149afonso@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:48:27 by danielafons       #+#    #+#             */
-/*   Updated: 2026/02/03 13:20:09 by danielafons      ###   ########.fr       */
+/*   Updated: 2026/02/24 21:44:28 by daniel149af      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ class Bigint {
 
     // Public Methods
     void normalize(Bigint& bigint, const std::vector<int>& v1) const;
-    void print_bigint(std::vector<int>& v1);
     void print_digits(std::ostream &out) const;
 };
 

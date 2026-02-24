@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   bigint.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danielafonso <danielafonso@student.42.f    +#+  +:+       +#+        */
+/*   By: daniel149afonso <daniel149afonso@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:48:31 by danielafons       #+#    #+#             */
-/*   Updated: 2026/02/11 13:14:15 by danielafons      ###   ########.fr       */
+/*   Updated: 2026/02/24 21:44:17 by daniel149af      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Bigint.hpp"
+#include "bigint.hpp"
 
 // Default constructor
 Bigint::Bigint(): digits(1, 0)
@@ -294,13 +294,4 @@ void Bigint::normalize(Bigint& bigint, const std::vector<int>& v1) const
         bigint.digits.push_back(v1[i]);
         i--;
     }
-}
-
-void Bigint::print_bigint(std::vector<int>& v1)
-{
-    for (size_t i = 0; i < v1.size(); i++)
-    {
-       std::cout << v1[i];
-    }
-    std::cout << std::endl;
 }
