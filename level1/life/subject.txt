@@ -1,0 +1,27 @@
+Functions allowed: atoi, read, putchar, malloc, calloc, realloc, free.
+
+You must write a program that will simulate a game of life:
+./life width height iterations
+
+Width and height the dimension of the board and iterations is the number of iterations of the game of life.
+
+The initial configuration of the board will be drawn by sequence of commands int the standard input.
+
+Imagine a pen starting in the top left corner of the board.
+Each command is one of these characters:
+
+wasd-> move up, left, bottom and right.
+
+x->lift or lower the pen in order to start or stop drawing (when used with 'echo', you can ignore the \n).
+
+Once end of file reached, your program must simulate a game of life on this board and print the result in stdout (each cell alive will be represented by the character '0 and each dead cell will be represented by a space).
+Each cell outside of the array will be considered dead.
+
+Example:
+
+$ echo "..." | ./a.out 5 5 0
+
+
+000
+0 0
+000
