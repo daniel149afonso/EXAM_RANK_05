@@ -6,7 +6,7 @@
 /*   By: daniel149afonso <daniel149afonso@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 13:38:54 by daniel149af       #+#    #+#             */
-/*   Updated: 2026/03/08 20:03:15 by daniel149af      ###   ########.fr       */
+/*   Updated: 2026/03/11 23:04:43 by daniel149af      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,7 @@ void handle_movements(char c, int *x, int *y, int *pen, int width, int height, c
 		tmp_y++;
 	if (c == 'x')
 	{
-		if (*pen  == 1)
-			*pen = 0;
-		else
-			*pen = 1;
+		*pen = !*pen;
 	}
 	if (tmp_x >= 0 && tmp_x < width && tmp_y >= 0 && tmp_y < height)
 	{
@@ -77,6 +74,54 @@ void handle_movements(char c, int *x, int *y, int *pen, int width, int height, c
 	{
 		int index = (*y) * width + (*x);
 		grid[index] = '0';
+	}
+}
+
+void gameOfLife(int iterations, int height, int width, char * grid, char *new_grid)
+{
+	int count;
+	for (int it = 0; it < iterations; it++)
+	{
+		for (int y = 0; y < height; y++)
+		{
+			for (int x = 0; x < width; x++)
+			{
+				count = 0;
+				int index = y * width + x;
+				if (x + 1 < width && grid[index + 1] == '0')
+					count++;
+				if (x > 0 && grid[index - 1] == '0')
+					count++;
+				if (y > 0 && grid[index - width] == '0')
+					count++;
+				if (y + 1 < height && grid[index + width] == '0')
+					count++;
+				if (y > 0 && x > 0 && grid[index - width - 1] == '0')
+					count++;
+				if (y + 1 < height && x > 0 && grid[index + width - 1] == '0')
+					count++;
+				if (y > 0 && x + 1 < width && grid[index - width + 1] == '0')
+					count++;
+				if (y + 1 < height && x + 1 < width && grid[index + width + 1] == '0')
+					count++;
+				if (grid[index] == '0')
+				{
+					if (count == 2 || count == 3)
+						new_grid[index] = '0';
+					else
+						new_grid[index] = '\0';
+				}
+				else
+				{
+					if (count == 3)
+						new_grid[index] = '0';
+				}
+			}
+		}
+		for (int i = 0; i < width * height; i++)
+			grid[i] = new_grid[i];
+		for (int i = 0; i < width * height; i++)
+			new_grid[i] = '\0';
 	}
 }
 
@@ -99,7 +144,8 @@ int main(int argc, char **argv)
 	if (!buffer)
 		return (1);
 	char *new_grid = calloc((width * height), sizeof(char));
-	
+	if (!new_grid)
+		 return (1);
 	int r; 
 	while ((r = read(0, buffer, BUFFER_SIZE)) > 0)
 	{
@@ -110,40 +156,11 @@ int main(int argc, char **argv)
 			handle_movements(c, &x, &y, &pen, width, height, grid);
 		}
 	}
+	// debug
 	putchar('\n');
-	for (int i = 0; i < height * width; i++)
-	{
-		new_grid[i] = grid[i];
-	}
-	
 	ft_putgrid(grid, width, height);
-	int count;
-	for (int y = 0; y < height; y++)
-	{
-		count = 0;
-		for (int x = 0; x < width; x++)
-		{
-			int index = y * width + x;
-			if (grid[index + 1] == '0')
-				count++;
-			if (grid[index - 1] == '0')
-				count++;
-			if (grid[index - width] == '0')
-				count++;
-			if (grid[index + width] == '0')
-				count++;
-			if (grid[index - width - 1] == '0')
-				count++;
-			if (grid[index + width - 1] == '0')
-				count++;
-			if (grid[index - width + 1] == '0')
-				count++;
-			if (grid[index + width + 1] == '0')
-				count++;
-			if (count < 2)
-				new_grid[index] = '\0';
-		}
-	}
+	// end debud
+	gameOfLife(iterations, height, width, grid, new_grid);
 	ft_putgrid(grid, width, height);
 	free(new_grid);
 	free(grid);
